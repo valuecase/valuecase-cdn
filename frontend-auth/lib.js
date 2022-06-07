@@ -7437,13 +7437,13 @@ function wrapReactComponentAsWebComponent(reactComponent, options) {
       super();
       __publicField(this, "reactRoot");
       __publicField(this, "properties", {});
-      if (options.disableShadowDom === true) {
+      if ((options == null ? void 0 : options.disableShadowDom) === true) {
         this.reactRoot = client.createRoot(this);
       } else {
         this.reactRoot = client.createRoot(this.attachShadow({ mode: "open" }));
       }
       this.properties.eventTriggers = {};
-      if (options.eventNames) {
+      if (options == null ? void 0 : options.eventNames) {
         options.eventNames.forEach((eventName) => {
           this.properties.eventTriggers[eventName] = (data2) => {
             this.dispatchEvent(new CustomEvent(eventName, { detail: data2 }));
@@ -7459,7 +7459,7 @@ function wrapReactComponentAsWebComponent(reactComponent, options) {
       this.renderReactComponent();
     }
     attributeChangedCallback(name, oldValue, newValue) {
-      if (options.propertyConverters) {
+      if (options == null ? void 0 : options.propertyConverters) {
         const propertyName = name.substring(5);
         const converter = options.propertyConverters.get(propertyName);
         if (!converter) {
@@ -7469,7 +7469,7 @@ function wrapReactComponentAsWebComponent(reactComponent, options) {
         this.renderReactComponent();
       }
     }
-  }, __publicField(_a, "observedAttributes", options.propertyConverters ? Array.from(options.propertyConverters.keys()).map((propName) => "data-" + propName) : []), _a;
+  }, __publicField(_a, "observedAttributes", (options == null ? void 0 : options.propertyConverters) ? Array.from(options == null ? void 0 : options.propertyConverters.keys()).map((propName) => "data-" + propName) : []), _a;
 }
 var jsxRuntime = { exports: {} };
 var reactJsxRuntime_production_min = {};
@@ -10795,6 +10795,8 @@ const Auth = () => {
       return /* @__PURE__ */ jsx(SignIn, {});
   }
 };
+var index$1 = "";
+var index = "";
 const App = () => {
   return /* @__PURE__ */ jsx(React.StrictMode, {
     children: /* @__PURE__ */ jsx(ye, {
@@ -10806,8 +10808,5 @@ const App = () => {
     })
   });
 };
-var index$1 = "";
-var index = "";
-const VlcsAuth = wrapReactComponentAsWebComponent(App, { propertyConverters: null, eventNames: null, disableShadowDom: true });
-customElements.define("vlcs-auth", VlcsAuth);
+customElements.define("vlcs-auth", wrapReactComponentAsWebComponent(App, { disableShadowDom: true }));
 export { AuthStateContext as A, BASE_API_URL as B, EmoForm as E, InputArea as I, RECOVERY_API_URL as R, SIGNUP_API_URL as S, WORKFLOW_API_URL as W, AuthDispatchContext as a, jsx as b, Button as c, EmoErrorMessage as d, emailRegex as e, BASE_URL as f, SIGNIN_API_URL as g, SET_PASSWORD_API_URL as h, jsxs as j, post as p, react as r, styled as s };
