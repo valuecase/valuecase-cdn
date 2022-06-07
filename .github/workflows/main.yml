@@ -25,9 +25,9 @@ jobs:
         uses: "WyriHaximus/github-action-next-semvers@v1"
         with:
           version: ${{ steps.previoustag.outputs.tag }}
-      - name: "echo"
-        run: "echo 'new version ${{ steps.semvers.outputs.v_major }}'"
-      - name: 'Push new semver tag'
-        uses: richardsimko/update-tag@v1
+      - name: "Log version"
+        run: "echo 'New version is: ${{ steps.semvers.outputs.v_minor }}'"
+      - uses: rickstaa/action-create-tag@v1
         with:
-          tag_name: ${{ steps.semvers.outputs.v_major }}
+          tag: "${{ steps.semvers.outputs.v_minor }}"
+          message: "Release ${{ steps.semvers.outputs.v_minor }}"
