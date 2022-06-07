@@ -10810,8 +10810,4 @@ var index$1 = "";
 var index = "";
 const VlcsAuth = wrapReactComponentAsWebComponent(App, { propertyConverters: null, eventNames: null, disableShadowDom: true });
 customElements.define("vlcs-auth", VlcsAuth);
-const container = document.querySelector("#vlcs-auth-container");
-if (container) {
-  container.appendChild(document.createElement("vlcs-auth"));
-}
 export { AuthStateContext as A, BASE_API_URL as B, EmoForm as E, InputArea as I, RECOVERY_API_URL as R, SIGNUP_API_URL as S, WORKFLOW_API_URL as W, AuthDispatchContext as a, jsx as b, Button as c, EmoErrorMessage as d, emailRegex as e, BASE_URL as f, SIGNIN_API_URL as g, SET_PASSWORD_API_URL as h, jsxs as j, post as p, react as r, styled as s };
