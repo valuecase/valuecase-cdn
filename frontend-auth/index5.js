@@ -101,6 +101,7 @@ const ResetPassword = () => {
   };
   return /* @__PURE__ */ jsxs(EmoForm, {
     onSubmit: handleSubmitData,
+    autoComplete: "on",
     children: [/* @__PURE__ */ jsx(InputArea, {
       fields: resetPasswordState == null ? void 0 : resetPasswordState.fields,
       onChange: handleInput,

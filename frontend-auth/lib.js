@@ -10461,6 +10461,7 @@ const Input = ({
   error,
   name
 }) => {
+  const [readOnly, setReadOnly] = react.exports.useState(true);
   return /* @__PURE__ */ jsx(EmoInput, {
     id: id2,
     name,
@@ -10472,7 +10473,10 @@ const Input = ({
     onChange,
     required,
     disabled,
-    error
+    error,
+    readOnly,
+    onFocus: () => setReadOnly(false),
+    onBlur: () => setReadOnly(true)
   });
 };
 const EmoInputLabel = styled.label`
@@ -10549,20 +10553,13 @@ const InputArea = ({
   data: data2,
   onChange
 }) => {
-  const {
-    currentScreen
-  } = react.exports.useContext(AuthStateContext);
   return /* @__PURE__ */ jsx(AreaWrapper, {
     children: fields.map((field) => {
       const autoComplete = (() => {
-        if (field.id === "repassword") {
+        if (field.id === "repassword" || field.id === "password") {
           return "new-password";
         } else if (field.id === "email") {
           return "username";
-        } else if (field.id === "password") {
-          if (currentScreen === "reset-password")
-            return "on";
-          return "current-password";
         }
         return "off";
       })();

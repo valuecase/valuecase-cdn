@@ -74,6 +74,7 @@ const RequestResetPassword = () => {
   };
   return /* @__PURE__ */ jsxs(EmoForm, {
     onSubmit: handleSubmitData,
+    autoComplete: "on",
     children: [/* @__PURE__ */ jsx(InputArea, {
       fields: requestResetPasswordState == null ? void 0 : requestResetPasswordState.fields,
       onChange: handleInput,
