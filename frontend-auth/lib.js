@@ -9023,7 +9023,7 @@ const LayoutBox = styled.div`
     max-height: 100%;
   }
 
-  @media only screen and (max-width: 800px) {
+  @media only screen and (max-width: 1000px) {
     width: 100%;
     height: 100%;
   }
@@ -9046,7 +9046,7 @@ const ContentArea = styled.div`
   align-items: center;
   transition: all 0.1s;
 
-  @media only screen and (max-width: 600px) {
+  @media only screen and (max-width: 700px) {
     width: 100%;
   }
 `;
@@ -9055,6 +9055,8 @@ const FormArea = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 320px;
+  padding-left: 8px;
+  padding-right: 8px;
   margin-top: 16%;
 `;
 const ImageArea = styled.div`
@@ -9082,6 +9084,17 @@ const ImageArea = styled.div`
     display: none;
     visibility: hidden;
   }
+
+  @media only screen and (max-width: 700px) {
+    width: 70%;
+    height: 100%;
+  }
+
+  @media only screen and (max-width: 1000px) {
+    width: 80%;
+    height: 100%;
+  }
+
 `;
 const Image = styled.img`
   max-width: 100%;
