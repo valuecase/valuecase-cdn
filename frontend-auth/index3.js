@@ -195,28 +195,33 @@ const SignIn = () => {
       value
     } = event.target;
     if (id === "email") {
-      if (data.email.error) {
-        setData(__spreadProps(__spreadValues({}, data), {
-          email: {
-            value,
-            error: value === "" ? false : !emailRegex.test(value),
-            message: value === "" || emailRegex.test(value) ? "" : "Invalid email"
-          }
-        }));
-      } else {
-        setData(__spreadProps(__spreadValues({}, data), {
-          email: {
-            value,
-            error: !emailRegex.test(value),
-            message: !emailRegex.test(value) ? "Invalid email" : ""
-          }
-        }));
-      }
+      setData(__spreadProps(__spreadValues({}, data), {
+        email: {
+          value,
+          error: false,
+          message: ""
+        }
+      }));
     } else if (id === "password") {
       setData(__spreadProps(__spreadValues({}, data), {
         password: __spreadProps(__spreadValues({}, data.password), {
           value
         })
+      }));
+    }
+  };
+  const handleOnBlur = (event) => {
+    const {
+      value,
+      id
+    } = event.target;
+    if (id === "email") {
+      setData(__spreadProps(__spreadValues({}, data), {
+        email: {
+          value,
+          error: !emailRegex.test(value),
+          message: !emailRegex.test(value) ? "Invalid email" : ""
+        }
       }));
     }
   };
@@ -244,6 +249,7 @@ const SignIn = () => {
       children: [/* @__PURE__ */ jsx(InputArea, {
         fields: signInState == null ? void 0 : signInState.fields,
         onChange: handleInput,
+        onBlur: handleOnBlur,
         data
       }), /* @__PURE__ */ jsx(Button, {
         background: status,

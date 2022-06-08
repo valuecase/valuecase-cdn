@@ -64,6 +64,29 @@ const ResetPassword = () => {
       value
     } = event.target;
     if (id === "password") {
+      setData((prev) => __spreadProps(__spreadValues({}, prev), {
+        password: __spreadProps(__spreadValues({}, prev.password), {
+          value
+        })
+      }));
+    } else if (id === "repassword") {
+      setData(__spreadProps(__spreadValues({}, data), {
+        password: __spreadProps(__spreadValues({}, data.password), {
+          error: value !== data.password.value,
+          message: value !== data.password.value ? "Passwords do not match" : ""
+        }),
+        repassword: __spreadProps(__spreadValues({}, data.repassword), {
+          value
+        })
+      }));
+    }
+  };
+  const handleOnBlur = (event) => {
+    const {
+      value,
+      id
+    } = event.target;
+    if (id === "password") {
       setData(__spreadProps(__spreadValues({}, data), {
         password: {
           value,
@@ -105,6 +128,7 @@ const ResetPassword = () => {
     children: [/* @__PURE__ */ jsx(InputArea, {
       fields: resetPasswordState == null ? void 0 : resetPasswordState.fields,
       onChange: handleInput,
+      onBlur: handleOnBlur,
       data
     }), /* @__PURE__ */ jsx(Button, {
       background: status,

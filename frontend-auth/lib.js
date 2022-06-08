@@ -10466,6 +10466,7 @@ const Input = ({
   placeholder = "Type here...",
   autoComplete = "off",
   onChange,
+  onBlur,
   required,
   type,
   id: id2,
@@ -10475,6 +10476,10 @@ const Input = ({
   name
 }) => {
   const [readOnly, setReadOnly] = react.exports.useState(true);
+  const handleOnBlur = (event) => {
+    setReadOnly(true);
+    onBlur && onBlur(event);
+  };
   return /* @__PURE__ */ jsx(EmoInput, {
     id: id2,
     name,
@@ -10489,7 +10494,7 @@ const Input = ({
     error,
     readOnly,
     onFocus: () => setReadOnly(false),
-    onBlur: () => setReadOnly(true)
+    onBlur: handleOnBlur
   });
 };
 const EmoInputLabel = styled.label`
@@ -10530,6 +10535,7 @@ const FieldWrapper = styled.div`
 const TextField = ({
   field,
   onChange,
+  onBlur,
   value,
   error,
   message,
@@ -10551,6 +10557,7 @@ const TextField = ({
       type: field.type,
       placeholder: field.placeholder,
       onChange,
+      onBlur,
       value,
       error,
       disabled,
@@ -10564,7 +10571,8 @@ const AreaWrapper = styled.div`
 const InputArea = ({
   fields,
   data: data2,
-  onChange
+  onChange,
+  onBlur
 }) => {
   return /* @__PURE__ */ jsx(AreaWrapper, {
     children: fields.map((field) => {
@@ -10579,6 +10587,7 @@ const InputArea = ({
       return /* @__PURE__ */ jsx(TextField, {
         field,
         onChange,
+        onBlur,
         value: data2[field.id].value,
         error: data2[field.id].error || false,
         message: data2[field.id].message,

@@ -1,3 +1,22 @@
+var __defProp = Object.defineProperty;
+var __defProps = Object.defineProperties;
+var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
+var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __propIsEnum = Object.prototype.propertyIsEnumerable;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __spreadValues = (a, b) => {
+  for (var prop in b || (b = {}))
+    if (__hasOwnProp.call(b, prop))
+      __defNormalProp(a, prop, b[prop]);
+  if (__getOwnPropSymbols)
+    for (var prop of __getOwnPropSymbols(b)) {
+      if (__propIsEnum.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    }
+  return a;
+};
+var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 import { p as post, B as BASE_API_URL, W as WORKFLOW_API_URL, R as RECOVERY_API_URL, r as react, a as AuthDispatchContext, A as AuthStateContext, j as jsxs, E as EmoForm, b as jsx, I as InputArea, c as Button, e as emailRegex } from "./lib.js";
 import { S as SuggestAction } from "./index2.js";
 const requestResetPassword = async (data) => {
@@ -40,23 +59,25 @@ const RequestResetPassword = () => {
     const {
       value
     } = event.target;
-    if (data.email.error) {
-      setData({
-        email: {
-          value,
-          error: value === "" ? false : !emailRegex.test(value),
-          message: value === "" || emailRegex.test(value) ? "" : "Invalid email"
-        }
-      });
-    } else {
-      setData({
-        email: {
-          value,
-          error: !emailRegex.test(value),
-          message: !emailRegex.test(value) ? "Invalid email" : ""
-        }
-      });
-    }
+    setData((prev) => ({
+      email: __spreadProps(__spreadValues({}, prev.email), {
+        value,
+        error: false,
+        message: ""
+      })
+    }));
+  };
+  const handleOnBlur = (event) => {
+    const {
+      value
+    } = event.target;
+    setData({
+      email: {
+        value,
+        error: !emailRegex.test(value),
+        message: !emailRegex.test(value) ? "Invalid email" : ""
+      }
+    });
   };
   const handleSubmitData = (event) => {
     event.preventDefault();
@@ -78,6 +99,7 @@ const RequestResetPassword = () => {
     children: [/* @__PURE__ */ jsx(InputArea, {
       fields: requestResetPasswordState == null ? void 0 : requestResetPasswordState.fields,
       onChange: handleInput,
+      onBlur: handleOnBlur,
       data
     }), /* @__PURE__ */ jsx(Button, {
       background: status,
