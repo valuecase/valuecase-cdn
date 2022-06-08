@@ -7504,7 +7504,7 @@ reactJsxRuntime_production_min.jsxs = q$2;
 const jsx = jsxRuntime.exports.jsx;
 const jsxs = jsxRuntime.exports.jsxs;
 const initialState = {
-  currentScreen: "reset-password",
+  currentScreen: "signin",
   signUp: {
     heading: "Welcome to Valuecase!",
     subHeading: "Please set your password below.",
