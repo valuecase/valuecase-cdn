@@ -10518,9 +10518,7 @@ const Input = ({
   error,
   name
 }) => {
-  const [readOnly, setReadOnly] = react.exports.useState(true);
   const handleOnBlur = (event) => {
-    setReadOnly(true);
     onBlur && onBlur(event);
   };
   return /* @__PURE__ */ jsx(EmoInput, {
@@ -10535,8 +10533,6 @@ const Input = ({
     required,
     disabled,
     error,
-    readOnly,
-    onFocus: () => setReadOnly(false),
     onBlur: handleOnBlur
   });
 };
