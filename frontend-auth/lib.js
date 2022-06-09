@@ -8948,7 +8948,7 @@ const Logo = styled.img`
   height: 20px;
   margin-right: auto;
 `;
-const Heading = styled.h1`
+const Heading = styled.div`
   max-width: 320px;
 
   font-family: 'Roboto';
@@ -8966,6 +8966,9 @@ const Heading = styled.h1`
   flex: none;
   order: 0;
   flex-grow: 0;
+
+  margin-top: 24px;
+  margin-bottom: 24px;
 `;
 const Subheading = styled.div`
   font-family: 'Roboto';
@@ -9035,10 +9038,14 @@ const BackgroundDiv = styled.div`
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
+  padding-left: 32px;
+  padding-right: 32px;
 
   @media only screen and (max-width: 600px) {
     justify-content: flex-start;
     align-items: start;
+    padding-left: 0;
+    padding-right: 0;
   }
 `;
 const LayoutBox = styled.div`
@@ -9092,8 +9099,8 @@ const FormArea = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 320px;
-  padding-left: 8px;
-  padding-right: 8px;
+  padding-left: 24px;
+  padding-right: 24px;
   margin-top: 16%;
 `;
 const ImageArea = styled.div`
@@ -9131,7 +9138,6 @@ const ImageArea = styled.div`
     width: 80%;
     height: 100%;
   }
-
 `;
 const Image = styled.img`
   max-width: 100%;
@@ -9144,7 +9150,6 @@ const Image = styled.img`
 
   @media only screen and (min-width: 1000px) {
     width: 100%;
-    
   }
 `;
 const AuthLayout = ({
@@ -10452,6 +10457,7 @@ const EmoInput = styled.input`
     return "0px 0px 0px 4px #FFDEDF";
   return "0px 0px 0px 4px #e9edff;";
 }};
+    background: #ffffff;
   }
 
   &:active,
@@ -10484,13 +10490,13 @@ const EmoInput = styled.input`
   height: 40px;
 
   /* Grey scale/1 */
-  background: #f8f8fc;
+  background: #F8F8FC;
 
   border-radius: 8px;
   border: ${(props) => {
   if (props.error)
     return "1px solid #F45359;";
-  return "1px solid #ECECF5;";
+  return "1px solid #F8F8FC;";
 }}
 
   /* Inside auto layout */
@@ -10611,10 +10617,15 @@ const InputArea = ({
   onChange,
   onBlur
 }) => {
+  const {
+    currentScreen
+  } = react.exports.useContext(AuthStateContext);
   return /* @__PURE__ */ jsx(AreaWrapper, {
     children: fields.map((field) => {
       const autoComplete = (() => {
         if (field.id === "repassword" || field.id === "password") {
+          if (currentScreen === "signin")
+            return "current-password";
           return "new-password";
         } else if (field.id === "email") {
           return "username";

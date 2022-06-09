@@ -9,8 +9,8 @@ const WrapperDiv = styled.div`
   font-weight: regular;
 `;
 const Link = styled.a`
-  text-decoration: none;
-  color: #2a4cfa;
+  text-decoration: none !important;
+  color: #2a4cfa !important;
 `;
 const SuggestAction = ({
   text,
