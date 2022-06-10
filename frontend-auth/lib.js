@@ -10404,7 +10404,7 @@ const getBubbleBaseUrl = () => {
   if (window.location.pathname.startsWith("/version-")) {
     return window.location.origin + "/" + window.location.pathname.match(/\/([^/]+)/)[1] + "/";
   } else {
-    return window.location.origin;
+    return window.location.origin + "/";
   }
 };
 const BASE_URL = getBubbleBaseUrl();
