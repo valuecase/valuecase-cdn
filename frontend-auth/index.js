@@ -148,7 +148,7 @@ const SignUp = () => {
       });
     } else {
       if (result.atLeastOneNumber === false || result.length === false) {
-        setMessage("Password must contains at least 8 charachters and one number.");
+        setMessage("Password must contain at least 8 charachters and one number.");
       }
     }
   };

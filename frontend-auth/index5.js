@@ -130,7 +130,7 @@ const ResetPassword = () => {
       });
     } else {
       if (result.atLeastOneNumber === false || result.length === false) {
-        setErrMessage("Password must contains at least 8 charachters and one banana.");
+        setErrMessage("Password must contain at least 8 charachters and one number.");
       }
     }
   };

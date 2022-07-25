@@ -7594,7 +7594,7 @@ const initialState = {
     subHeading: "Please set your password below.",
     fields: [{
       id: "password",
-      label: "Password",
+      label: "Password, at least 8 characters, at least one number",
       type: "password",
       placeholder: "Enter password"
     }, {
