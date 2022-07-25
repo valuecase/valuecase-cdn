@@ -17,8 +17,9 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-import { p as post, B as BASE_API_URL, W as WORKFLOW_API_URL, S as SIGNUP_API_URL, r as react, A as AuthStateContext, a as AuthDispatchContext, j as jsxs, E as EmoForm, b as jsx, I as InputArea, c as Button, d as EmoErrorMessage, e as emailRegex } from "./lib.js";
+import { p as post, B as BASE_API_URL, W as WORKFLOW_API_URL, S as SIGNUP_API_URL, r as react, A as AuthStateContext, a as AuthDispatchContext, j as jsxs, E as EmoForm, b as jsx, I as InputArea, c as Button, F as Fragment, d as EmoErrorMessage, e as emailRegex } from "./lib.js";
 import { r as redirectToIndexPage } from "./redirectToIndexPage.js";
+import { i as isPassValid } from "./check-password.js";
 import { S as SuggestAction } from "./index2.js";
 const signUp = async (data) => {
   const api = `${BASE_API_URL}${WORKFLOW_API_URL}${SIGNUP_API_URL}`;
@@ -123,24 +124,33 @@ const SignUp = () => {
       }));
     }
   };
+  react.exports.useState(void 0);
   const handleSubmitData = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    setStatus("loading");
-    const newUserData = {
-      email: data.email.value,
-      password: data.password.value
-    };
-    signUp(newUserData).then((res) => {
-      setStatus("success");
-      redirectToIndexPage(res);
-    }).catch((error) => {
-      const {
-        message: errorMessage
-      } = error.response.data;
-      setStatus("error");
-      setMessage(errorMessage);
-    });
+    const result = isPassValid(data.password.value);
+    console.info("password check", result);
+    if (result === true) {
+      setStatus("loading");
+      const newUserData = {
+        email: data.email.value,
+        password: data.password.value
+      };
+      signUp(newUserData).then((res) => {
+        setStatus("success");
+        redirectToIndexPage(res);
+      }).catch((error) => {
+        const {
+          message: errorMessage
+        } = error.response.data;
+        setStatus("error");
+        setMessage(errorMessage);
+      });
+    } else {
+      if (result.atLeastOneNumber === false || result.length === false) {
+        setMessage("Password must contains at least 8 charachters and one number.");
+      }
+    }
   };
   return /* @__PURE__ */ jsxs(EmoForm, {
     onSubmit: handleSubmitData,
@@ -153,14 +163,16 @@ const SignUp = () => {
       disabled,
       type: "submit",
       children: buttonLabel
-    }), message && /* @__PURE__ */ jsx("div", {
-      style: {
-        marginTop: "8px"
-      },
-      children: /* @__PURE__ */ jsx(EmoErrorMessage, {
-        children: message
+    }), message ? /* @__PURE__ */ jsx(Fragment, {
+      children: /* @__PURE__ */ jsx("div", {
+        style: {
+          marginTop: "8px"
+        },
+        children: /* @__PURE__ */ jsx(EmoErrorMessage, {
+          children: message
+        })
       })
-    }), /* @__PURE__ */ jsx(SuggestAction, {
+    }) : /* @__PURE__ */ jsx(Fragment, {}), /* @__PURE__ */ jsx(SuggestAction, {
       text: "Have an account?",
       linkText: "Sign in",
       onClick: handleGoToSignIn

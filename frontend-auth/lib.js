@@ -7503,6 +7503,7 @@ reactJsxRuntime_production_min.jsxs = q$2;
 }
 const jsx = jsxRuntime.exports.jsx;
 const jsxs = jsxRuntime.exports.jsxs;
+const Fragment = jsxRuntime.exports.Fragment;
 const initialState = {
   currentScreen: "signin",
   signUp: {
@@ -7516,7 +7517,7 @@ const initialState = {
       placeholder: "Enter email"
     }, {
       id: "password",
-      label: "Password",
+      label: "Password, at least 8 characters, at least one number",
       type: "password",
       placeholder: "Enter password"
     }, {
@@ -7577,7 +7578,7 @@ const initialState = {
     subHeading: "Please enter a new password below.",
     fields: [{
       id: "password",
-      label: "Password",
+      label: "Password, at least 8 characters, at least one number",
       type: "password",
       placeholder: "Enter password"
     }, {
@@ -10559,7 +10560,7 @@ const EmoErrorMessage = styled.div`
 `;
 const LabelAreaWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 8px;
 `;
 const FieldWrapper = styled.div`
@@ -10885,4 +10886,4 @@ const App = () => {
   });
 };
 customElements.define("vlcs-auth", wrapReactComponentAsWebComponent(App, { disableShadowDom: true }));
-export { AuthStateContext as A, BASE_API_URL as B, EmoForm as E, InputArea as I, RECOVERY_API_URL as R, SIGNUP_API_URL as S, WORKFLOW_API_URL as W, AuthDispatchContext as a, jsx as b, Button as c, EmoErrorMessage as d, emailRegex as e, BASE_URL as f, SIGNIN_API_URL as g, SET_PASSWORD_API_URL as h, jsxs as j, post as p, react as r, styled as s };
+export { AuthStateContext as A, BASE_API_URL as B, EmoForm as E, Fragment as F, InputArea as I, RECOVERY_API_URL as R, SIGNUP_API_URL as S, WORKFLOW_API_URL as W, AuthDispatchContext as a, jsx as b, Button as c, EmoErrorMessage as d, emailRegex as e, BASE_URL as f, SIGNIN_API_URL as g, SET_PASSWORD_API_URL as h, jsxs as j, post as p, react as r, styled as s };

@@ -17,8 +17,9 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-import { p as post, B as BASE_API_URL, W as WORKFLOW_API_URL, h as SET_PASSWORD_API_URL, r as react, A as AuthStateContext, j as jsxs, E as EmoForm, b as jsx, I as InputArea, c as Button } from "./lib.js";
+import { p as post, B as BASE_API_URL, W as WORKFLOW_API_URL, h as SET_PASSWORD_API_URL, r as react, A as AuthStateContext, j as jsxs, E as EmoForm, b as jsx, I as InputArea, c as Button, F as Fragment, d as EmoErrorMessage } from "./lib.js";
 import { r as redirectToIndexPage } from "./redirectToIndexPage.js";
+import { i as isPassValid } from "./check-password.js";
 const resetPassword = async (data) => {
   const api = `${BASE_API_URL}${WORKFLOW_API_URL}${SET_PASSWORD_API_URL}`;
   const config = {
@@ -59,6 +60,7 @@ const ResetPassword = () => {
     return !value || error || status === "success" || status === "loading";
   }, [data, status]);
   const handleInput = (event) => {
+    setErrMessage(void 0);
     const {
       id,
       value
@@ -82,6 +84,7 @@ const ResetPassword = () => {
     }
   };
   const handleOnBlur = (event) => {
+    setErrMessage(void 0);
     const {
       value,
       id
@@ -98,7 +101,7 @@ const ResetPassword = () => {
       setData(__spreadProps(__spreadValues({}, data), {
         password: __spreadProps(__spreadValues({}, data.password), {
           error: value !== data.password.value,
-          message: value !== data.password.value ? "Passwords do not match" : ""
+          message: value !== data.password.value ? "" : ""
         }),
         repassword: __spreadProps(__spreadValues({}, data.repassword), {
           value
@@ -106,22 +109,36 @@ const ResetPassword = () => {
       }));
     }
   };
+  const [Errmessage, setErrMessage] = react.exports.useState();
   const handleSubmitData = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    setStatus("loading");
-    const resetPasswordData = {
-      password: data.password.value,
-      token: resetToken
-    };
-    resetPassword(resetPasswordData).then((res) => {
-      setStatus(res.data.status);
-      redirectToIndexPage(res);
-    }).catch((error) => {
-      console.error(error);
-      setStatus("error");
-    });
+    const result = isPassValid(data.password.value);
+    console.info("password check", result);
+    if (result === true) {
+      setStatus("loading");
+      const resetPasswordData = {
+        password: data.password.value,
+        token: resetToken
+      };
+      resetPassword(resetPasswordData).then((res) => {
+        setStatus(res.data.status);
+        redirectToIndexPage(res);
+      }).catch((error) => {
+        console.error(error);
+        setStatus("error");
+      });
+    } else {
+      if (result.atLeastOneNumber === false || result.length === false) {
+        setErrMessage("Password must contains at least 8 charachters and one banana.");
+      }
+    }
   };
+  react.exports.useEffect(() => {
+    const str = "asdasdccahmsss";
+    console.log(str);
+    console.info("password check", isPassValid(str));
+  }, []);
   return /* @__PURE__ */ jsxs(EmoForm, {
     onSubmit: handleSubmitData,
     autoComplete: "on",
@@ -135,7 +152,16 @@ const ResetPassword = () => {
       disabled,
       type: "submit",
       children: status === "success" ? resetPasswordState == null ? void 0 : resetPasswordState.buttonLabelSuccess : resetPasswordState == null ? void 0 : resetPasswordState.buttonLabel
-    })]
+    }), Errmessage ? /* @__PURE__ */ jsx(Fragment, {
+      children: /* @__PURE__ */ jsx("div", {
+        style: {
+          marginTop: "8px"
+        },
+        children: /* @__PURE__ */ jsx(EmoErrorMessage, {
+          children: Errmessage
+        })
+      })
+    }) : /* @__PURE__ */ jsx(Fragment, {})]
   });
 };
 export { ResetPassword as default };

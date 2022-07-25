@@ -17,7 +17,7 @@ var __spreadValues = (a, b) => {
   return a;
 };
 var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
-import { p as post, B as BASE_API_URL, W as WORKFLOW_API_URL, R as RECOVERY_API_URL, r as react, a as AuthDispatchContext, A as AuthStateContext, j as jsxs, E as EmoForm, b as jsx, I as InputArea, c as Button, e as emailRegex } from "./lib.js";
+import { p as post, B as BASE_API_URL, W as WORKFLOW_API_URL, R as RECOVERY_API_URL, r as react, a as AuthDispatchContext, A as AuthStateContext, j as jsxs, E as EmoForm, b as jsx, I as InputArea, c as Button, F as Fragment, d as EmoErrorMessage, e as emailRegex } from "./lib.js";
 import { S as SuggestAction } from "./index2.js";
 const requestResetPassword = async (data) => {
   const api = `${BASE_API_URL}${WORKFLOW_API_URL}${RECOVERY_API_URL}`;
@@ -56,6 +56,7 @@ const RequestResetPassword = () => {
     });
   };
   const handleInput = (event) => {
+    setErrMessage(void 0);
     const {
       value
     } = event.target;
@@ -67,7 +68,9 @@ const RequestResetPassword = () => {
       })
     }));
   };
+  const [Errmessage, setErrMessage] = react.exports.useState();
   const handleOnBlur = (event) => {
+    setErrMessage(void 0);
     const {
       value
     } = event.target;
@@ -106,7 +109,16 @@ const RequestResetPassword = () => {
       disabled,
       type: "submit",
       children: status === "success" ? requestResetPasswordState == null ? void 0 : requestResetPasswordState.buttonLabelSuccess : requestResetPasswordState == null ? void 0 : requestResetPasswordState.buttonLabel
-    }), /* @__PURE__ */ jsx(SuggestAction, {
+    }), Errmessage ? /* @__PURE__ */ jsx(Fragment, {
+      children: /* @__PURE__ */ jsx("div", {
+        style: {
+          marginTop: "8px"
+        },
+        children: /* @__PURE__ */ jsx(EmoErrorMessage, {
+          children: Errmessage
+        })
+      })
+    }) : /* @__PURE__ */ jsx(Fragment, {}), /* @__PURE__ */ jsx(SuggestAction, {
       text: "Changed your mind?",
       linkText: "Sign in",
       onClick: handleGoToSignIn
